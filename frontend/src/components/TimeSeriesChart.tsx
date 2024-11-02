@@ -11,9 +11,10 @@ import {
     Legend,
     Title,
     ChartOptions,
+    Filler
 } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Legend, Title);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Legend, Title, Filler);
 
 interface UserData {
     arrival_date_year: number;
@@ -236,13 +237,15 @@ const TimeSeriesChart: React.FC = () => {
     };
 
     return (
+    <>
+        <h2 style={{display:"flex", justifyContent:"center", alignItems:"center", fontSize:"40px"}}>Datachecks Dashboard Hotel Booking Data</h2>
         <div style={{ 
             display: 'flex', 
             flexDirection: 'row', 
             justifyContent: 'space-around', 
             alignItems: 'center', 
             height: '100vh',
-            padding: '20px',
+            padding: '30px',
         }}>
             <div style={{ 
                 width: '45%', 
@@ -313,6 +316,7 @@ const TimeSeriesChart: React.FC = () => {
                 <Bar options={countryOptions} data={countryChartData} />
             </div>
         </div>
+    </>
     );
 };
 
