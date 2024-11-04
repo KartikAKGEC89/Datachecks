@@ -123,11 +123,7 @@ const TimeSeriesChart: React.FC = () => {
 
     const handleEnter = () => {
         filterData(userData, startDate, endDate);
-    };
-    
-  
-    const handleEnterCon = () => {
-      aggregateCountryData(userData, startDate, endDate);
+        aggregateCountryData(userData, startDate, endDate);
     };
 
     const chartData = {
@@ -239,6 +235,25 @@ const TimeSeriesChart: React.FC = () => {
     return (
     <>
         <h2 style={{display:"flex", justifyContent:"center", alignItems:"center", fontSize:"40px"}}>Datachecks Dashboard Hotel Booking Data</h2>
+        <div style={{display:"flex", justifyContent:"flex-end", marginTop:"10px", marginRight:"10px"}}>
+                <label style={{backgroundColor: '#fff',  border:"1px solid black", padding:"4px"}}>
+                    Start Date:
+                    <input 
+                        type="date" 
+                        value={startDate} 
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                </label>
+                <label style={{ marginLeft: '10px', backgroundColor: '#fff',  border:"1px solid black", padding:"4px" }}>
+                    End Date:
+                    <input 
+                        type="date" 
+                        value={endDate} 
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+                </label>
+            <button onClick={handleEnter} style={{ marginLeft: '10px', border:"1px solid black", padding:"4px", backgroundColor:"#fff" }}>Enter</button>
+        </div>
         <div style={{ 
             display: 'flex', 
             flexDirection: 'row', 
@@ -260,25 +275,7 @@ const TimeSeriesChart: React.FC = () => {
                 padding: '20px',
             }}>
                 <h2>Number of Visitors Per Day</h2>
-                <div style={{ marginBottom: '10px' }}>
-                    <label style={{backgroundColor: '#fff',  border:"1px solid black", padding:"4px"}}>
-                        Start Date:
-                        <input 
-                            type="date" 
-                            value={startDate} 
-                            onChange={(e) => setStartDate(e.target.value)}
-                        />
-                    </label>
-                    <label style={{ marginLeft: '10px', backgroundColor: '#fff',  border:"1px solid black", padding:"4px" }}>
-                        End Date:
-                        <input 
-                            type="date" 
-                            value={endDate} 
-                            onChange={(e) => setEndDate(e.target.value)}
-                        />
-                    </label>
-                    <button onClick={handleEnter} style={{ marginLeft: '10px', border:"1px solid black", padding:"4px" }}>Enter</button>
-                </div>
+                
                 <Line options={options} data={chartData} />
             </div>
             <div style={{ 
@@ -294,25 +291,6 @@ const TimeSeriesChart: React.FC = () => {
                 padding: '20px',
             }}>
                 <h2>Visitors Per Country</h2>
-                <div style={{ marginBottom: '10px' }}>
-                    <label style={{backgroundColor: '#fff',  border:"1px solid black", padding:"4px"}}>
-                        Start Date:
-                        <input 
-                            type="date" 
-                            value={startDate} 
-                            onChange={(e) => setStartDate(e.target.value)}
-                        />
-                    </label>
-                    <label style={{ marginLeft: '10px', backgroundColor: '#fff',  border:"1px solid black", padding:"4px" }}>
-                        End Date:
-                        <input 
-                            type="date" 
-                            value={endDate} 
-                            onChange={(e) => setEndDate(e.target.value)}
-                        />
-                    </label>
-                    <button onClick={handleEnterCon} style={{ marginLeft: '10px', border:"1px solid black", padding:"4px" }}>Enter</button>
-                </div>
                 <Bar options={countryOptions} data={countryChartData} />
             </div>
         </div>
