@@ -71,7 +71,8 @@ const SparklineChart: React.FC = () => {
             width: 500,
             sparkline: { enabled: true },
             toolbar: { show: false },
-            zoom: { enabled: false }
+            zoom: { enabled: false },
+            background: "#ffffff"
         },
         stroke: { curve: "smooth", width: 2 },
         colors: [color],
@@ -89,7 +90,7 @@ const SparklineChart: React.FC = () => {
         tooltip: {
             enabled: true,
             x: {
-                formatter: (value, { dataPointIndex }) => adultsData[dataPointIndex]?.date || "", // Show date on hover
+                formatter: (value, { dataPointIndex }) => adultsData[dataPointIndex]?.date || "",
             },
             y: {
                 formatter: (value) => `${value} visitors`
@@ -102,9 +103,75 @@ const SparklineChart: React.FC = () => {
         }
     });
 
+    const barChartOptions = (data: { date: string; count: number }[]): ApexOptions => ({
+        chart: {
+            type: "bar",
+            height: 100, 
+            width: 300,  
+            sparkline: { enabled: true },
+            toolbar: { show: false },
+        },
+        xaxis: {
+            categories: data.map(item => item.date),
+            title: {
+                text: "Date",
+                style: {
+                    fontSize: "10px",
+                    color: "#333"
+                }
+            },
+            labels: {
+                show: false, 
+            },
+            tooltip: {
+                enabled: false
+            }
+        },
+        yaxis: {
+            title: {
+                text: "Number of Visitors",
+                style: {
+                    fontSize: "10px",
+                    color: "#333"
+                }
+            },
+            labels: {
+                show: false, 
+            }
+        },
+        colors: ["#74b9ff"],
+        plotOptions: {
+            bar: {
+                columnWidth: "70%",
+                borderRadius: 4,
+                distributed: false,
+            }
+        },
+        tooltip: {
+            enabled: true,
+            x: {
+                formatter: (value, { dataPointIndex }) => data[dataPointIndex]?.date || "",
+            },
+            y: {
+                formatter: (value) => `${value} visitors`
+            }
+        },
+        grid: {
+            borderColor: '#e0e0e0',
+            row: {
+                colors: ['#f9f9f9', '#fff'],
+                opacity: 0.5
+            }
+        },
+    });
+
+    const getLast10DaysData = (data: { date: string; count: number }[]) => {
+        return data.slice(-10);
+    };
+
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "40px", padding: "20px", background: "#ffffff"}}>
-            <div style={{ textAlign: "center", width: "500px" }}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "40px", padding: "20px", background: "#ffffff" }}>
+            <div style={{ textAlign: "center", width: "540px", padding: "20px", borderRadius: "8px"}}>
                 <h4>Total Adult Visitors</h4>
                 {adultsData.length > 0 ? (
                     <>
@@ -119,6 +186,15 @@ const SparklineChart: React.FC = () => {
                             <p><strong>Volume:</strong> {adultsVolume}</p>
                             <p><strong>Avg Last 10 Days:</strong> {adultsAvg}</p>
                             <p><strong>Change:</strong> {Math.round(((adultsData[adultsData.length - 1]?.count || 0) - (adultsData[adultsData.length - 10]?.count || 0)) / (adultsData[adultsData.length - 10]?.count || 1) * 100)}%</p>
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                <ApexCharts
+                                    options={barChartOptions(getLast10DaysData(adultsData))}
+                                    series={[{ name: "Last 10 Days", data: getLast10DaysData(adultsData).map(item => item.count) }]}
+                                    type="bar"
+                                    height={100} 
+                                    width={300} 
+                                />
+                            </div>
                         </div>
                     </>
                 ) : (
@@ -126,7 +202,7 @@ const SparklineChart: React.FC = () => {
                 )}
             </div>
 
-            <div style={{ textAlign: "center", width: "500px" }}>
+            <div style={{ textAlign: "center", width: "540px", padding: "20px", borderRadius: "8px" }}>
                 <h4>Total Children Visitors</h4>
                 {childrenData.length > 0 ? (
                     <>
@@ -141,6 +217,15 @@ const SparklineChart: React.FC = () => {
                             <p><strong>Volume:</strong> {childrenVolume}</p>
                             <p><strong>Avg Last 10 Days:</strong> {childrenAvg}</p>
                             <p><strong>Change:</strong> {Math.round(((childrenData[childrenData.length - 1]?.count || 0) - (childrenData[childrenData.length - 10]?.count || 0)) / (childrenData[childrenData.length - 10]?.count || 1) * 100)}%</p>
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                <ApexCharts
+                                    options={barChartOptions(getLast10DaysData(childrenData))}
+                                    series={[{ name: "Last 10 Days", data: getLast10DaysData(childrenData).map(item => item.count) }]}
+                                    type="bar"
+                                    height={100} 
+                                    width={300} 
+                                />
+                            </div>
                         </div>
                     </>
                 ) : (
