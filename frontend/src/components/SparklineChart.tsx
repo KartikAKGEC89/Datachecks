@@ -170,8 +170,8 @@ const SparklineChart: React.FC = () => {
     };
 
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "40px", padding: "20px", background: "#ffffff" }}>
-            <div style={{ textAlign: "center", width: "540px", padding: "20px", borderRadius: "8px"}}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "40px", padding: "20px", background: "#ffffff", flexDirection: window.innerWidth <= 1087 ? 'column' : 'row',}}>
+            <div style={{ textAlign: "center", width: window.innerWidth <= 1087 ? '100px' : '540px', padding: "20px", borderRadius: "8px"}}>
                 <h4>Total Adult Visitors</h4>
                 {adultsData.length > 0 ? (
                     <>
@@ -180,7 +180,7 @@ const SparklineChart: React.FC = () => {
                             series={[{ name: "Adults", data: adultsData.map(item => item.count) }]}
                             type="area"
                             height={300}
-                            width={500}
+                            width={window.innerWidth <= 1087 ? '160px' : '500px'}
                         />
                         <div style={{ marginTop: "10px", fontSize: "14px" }}>
                             <p><strong>Volume:</strong> {adultsVolume}</p>
@@ -202,7 +202,7 @@ const SparklineChart: React.FC = () => {
                 )}
             </div>
 
-            <div style={{ textAlign: "center", width: "540px", padding: "20px", borderRadius: "8px" }}>
+            <div style={{ textAlign: "center", width: window.innerWidth <= 1087 ? '100px' : '540px', padding: "20px", borderRadius: "8px" }}>
                 <h4>Total Children Visitors</h4>
                 {childrenData.length > 0 ? (
                     <>
@@ -211,7 +211,7 @@ const SparklineChart: React.FC = () => {
                             series={[{ name: "Children", data: childrenData.map(item => item.count) }]}
                             type="area"
                             height={300}
-                            width={500}
+                            width={window.innerWidth <= 1087 ? '160px' : '500px'}
                         />
                         <div style={{ marginTop: "10px", fontSize: "14px" }}>
                             <p><strong>Volume:</strong> {childrenVolume}</p>

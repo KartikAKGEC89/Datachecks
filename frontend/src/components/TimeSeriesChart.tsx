@@ -234,8 +234,8 @@ const TimeSeriesChart: React.FC = () => {
 
     return (
     <>
-        <h2 style={{display:"flex", justifyContent:"center", alignItems:"center", fontSize:"40px"}}>Datachecks Dashboard Hotel Booking Data</h2>
-        <div style={{display:"flex", justifyContent:"flex-end", marginTop:"10px", marginRight:"10px"}}>
+        <h2 style={{display:"flex", justifyContent:"center", alignItems:"center", fontSize: window.innerWidth <= 768 ? '20px' : '40px',}}>Datachecks Dashboard Hotel Booking Data</h2>
+        <div style={{display:"flex", justifyContent:"center", marginTop:"10px", marginRight:"10px"}}>
                 <label style={{backgroundColor: '#fff',  border:"1px solid black", padding:"4px"}}>
                     Start Date:
                     <input 
@@ -256,14 +256,14 @@ const TimeSeriesChart: React.FC = () => {
         </div>
         <div style={{ 
             display: 'flex', 
-            flexDirection: 'row', 
             justifyContent: 'space-around', 
             alignItems: 'center', 
             height: '100vh',
             padding: '30px',
+            flexDirection: window.innerWidth <= 1087 ? 'column' : 'row',
         }}>
             <div style={{ 
-                width: '45%', 
+                width: window.innerWidth <= 1087 ? '90%' : '45%',
                 height: '500px', 
                 display: "flex", 
                 flexDirection: 'column', 
@@ -279,7 +279,7 @@ const TimeSeriesChart: React.FC = () => {
                 <Line options={options} data={chartData} />
             </div>
             <div style={{ 
-                width: '45%', 
+                width: window.innerWidth <= 1087 ? '90%' : '45%', 
                 height: '500px', 
                 display: "flex", 
                 flexDirection: 'column', 
@@ -289,6 +289,7 @@ const TimeSeriesChart: React.FC = () => {
                 borderRadius: '8px',
                 boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
                 padding: '20px',
+                marginTop: window.innerWidth <= 1087 ? '10px' : '0', 
             }}>
                 <h2>Visitors Per Country</h2>
                 <Bar options={countryOptions} data={countryChartData} />
